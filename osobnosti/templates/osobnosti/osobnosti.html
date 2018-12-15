@@ -1,0 +1,29 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+  Herci
+{% endblock %}
+
+{% block content %}
+ <div class="zebricky">
+   <h3 class="h3-nadpis">Herci</h3>
+
+   <table class="table table-responsive-sm table-borderless table-hover zebricky-table a">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Jmeno</th>
+          <th scope="col">Narozeniny</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for her in herci  %}
+          <tr>
+            <td><a href="{% url 'osobnosti:herec' slug=her.slug %}">{{her.title}}</a></td>
+            <td><a href="{% url 'osobnosti:herec' slug=her.slug %}">{{her.narozeniny}}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+ </div>
+{% endblock %}

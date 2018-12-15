@@ -1,0 +1,231 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+
+{% block title %}
+  Filmy
+{% endblock %}
+
+{% block content %}
+  <div class="filtr">
+    <h3 class="h3-nadpis">Filtry</h3>
+
+    <div class="topnav">
+
+        <div class="search-container">
+          <form action="" method="get">
+            <input type="text" name="title__icontains" id="id_title__icontains" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+    </div>
+
+    <!--
+    <div class="collapse" id="collapseExample">
+      <div class="container">
+        <div class="row justify-content-around">
+
+            <div class="col-lg-3 col-sm-6 col-12">
+              <label class="container-form">Akční
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Animované
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+
+            </div>
+
+            <div class=" col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Dětské
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class=" col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Dobrodružné
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+              <label class="container-form">Dokumentární
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class=" col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Historické
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class=" col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Hrorory
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Katastrofické
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+
+
+              <label class="container-form">Komedie
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Krimi
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Parodie
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Thriller
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class=" col-lg-3 col-sm-6 col-12">
+
+
+
+              <label class="container-form">Rodiný
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class=" col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Romantický
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Sci-fi
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+
+              <label class="container-form">Western
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+
+        </div></div>
+
+    </div>
+
+    <div class="filcolaps">
+      <a class="filtr-collapse" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Více
+      </a>
+    </div>
+    -->
+  </div>
+
+  <div class="container nabidka-filmu">
+    <div class="row">
+
+      {% for fil in filmy %}
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="karta-film">
+            <a href="{% url 'filmy:film' slug=fil.slug %}"><img src="{{ fil.poster.url }}" alt="{{ fil.title }}"></a>
+            <a class="bttn" href="{% url 'filmy:film' slug=fil.slug %}" role="button">{{fil.title}}</a>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <nav class="page-navigation" aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if response.has_previous %}
+        <li>
+          <a href="?page=1&title__icontains={{ filter__content }}" aria-label="Next">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+
+      {% else %}
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      {% endif %}
+
+      {% for nov in filmy.paginator.page_range %}
+        {% if response.number == nov %}
+          <li><a href=""> <strong>{{ nov }}</strong> </a></li>
+        {% elif nov > filmy.number|add:'-3' and nov < filmy.number|add:'3' %}
+          <li><a href="?page={{nov}}&title__icontains={{ filter__content }}"> {{ nov }} </a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if response.has_next %}
+        <li>
+          <a href="?page={{ response.paginator.num_pages }}&title__icontains={{ filter__content }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      {% else %}
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      {% endif %}
+  </nav>
+{% endblock %}

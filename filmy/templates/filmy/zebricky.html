@@ -1,0 +1,38 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+  Žebříčky
+{% endblock %}
+
+{% block content %}
+ <div class="zebricky">
+   <h3 class="h3-nadpis">Žebříčky</h3>
+
+   <div class="select-area flex a">
+      <a class='{% if request.resolver_match.url_name == "nejoblibenejsi" %}active_a{% endif %}'  href="{% url 'filmy:nejoblibenejsi' %}">Nejoblíbenější filmy</a>
+      <a class='{% if request.resolver_match.url_name == "nejneoblibenejsi" %}active_a{% endif %}'  href="{% url 'filmy:nejneoblibenejsi' %}">Nejneoblíbeňejší filmy</a>
+      <a class='{% if request.resolver_match.url_name == "nejlepsi" %}active_a{% endif %}'  href="{% url 'filmy:nejlepsi' %}">Nejlepší</a>
+      <a class='{% if request.resolver_match.url_name == "nejhorsi" %}active_a{% endif %}'  href="{% url 'filmy:nejhorsi' %}">Nejhorší</a>
+   </div>
+
+   <table class="table table-striped table-hover table-borderless a">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for film in filmy  %}
+          <tr>
+            <td><a href="{% url 'filmy:film' slug=film.slug %}">{{film.title}}</a></td>
+            <td><a href="{% url 'filmy:film' slug=film.slug %}">{{film.hodnoceni}}%</a></td>
+            <td><a href="{% url 'filmy:film' slug=film.slug %}">{{film.hodnoceno}} hodnoceno</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+ </div>
+{% endblock %}

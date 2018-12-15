@@ -1,0 +1,97 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+  Homepage
+{% endblock %}
+
+{% block content %}
+  <div class="billboard">
+     <img src="{% static '/img/Billboard.jpeg' %}" alt="billboards">
+  </div>
+
+  <p class="hp-popis">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <div class="nabidka-filmu-btn">
+    <a class="bttn" href="{% url 'filmy:filmy' %}" role="button">Prohlídnout si nabídku filmů</a>
+  </div>
+
+  <div class="container nabidka-filmu">
+    <div class="row ">
+
+      {% for film in filmy|slice:":12" %}
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="karta-film">
+            <a href="{% url 'filmy:film' slug=film.slug %}"><img src="{{ film.poster.url }}" alt="fight club"></a>
+            <a class="bttn" href="{% url 'filmy:film' slug=film.slug %}" role="button">{{film.title}}</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row collapse" id="collapseExample">
+      {% for film in filmy|slice:"12:24" %}
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="karta-film">
+            <a href="{% url 'filmy:film' slug=film.slug %}"><img src="{{ film.poster.url }}" alt="fight club"></a>
+            <a class="bttn" href="{% url 'filmy:film' slug=film.slug %}" role="button">{{film.title}}</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <a class="wrap" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <span class="arrow"><span></span><span></span></span>
+  </a>
+
+
+
+
+
+    <div class="container">
+      <div class="row justify-content-around">
+          <div class="col-lg-6 col-md-12">
+            <a class="nadpis-novinky" href="{% url 'novinky:novinky' %}"><h3>Novinky</h3></a>
+
+            {% for novinka in novinky|slice:"2" %}
+              <div class="karta-novinky">
+                <div class="a">
+                  <img src="{{ novinka.thumb.url }}" alt="bttf">
+                  <h4 class="h4-nadpis">{{ novinka.title }}</h4>
+                  {{ novinka.do }}
+                  <div class="collapse" id="dat{{novinka.id}}">
+                  {{ novinka.od }}
+                  </div>
+
+                  <a class="text-collapse" data-toggle="collapse" href="#{{novinka.id}}" role="button" aria-expanded="false" aria-controls="{{novinka.id}}" data-target="#dat{{novinka.id}}">
+                    Více
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="col-lg-6 col-md-12">
+            <a class="nadpis-herci" href="{% url 'osobnosti:herci' %}"><h3>Osobnosti</h3></a>
+
+            <div class="karta-tvurce" id="karta-tvurce-homepage">
+                <div class="karta-tvurce-top">
+                  <img src="{{herec.fotografie.url}}" alt="bttf">
+                  <h4>{{herec.title}}</h4>
+                  <p><span>narozeniny: </span>{{herec.narozeniny}}</p>
+                  <p><span>město narození: </span>{{herec.misto_narozeni}}</p>
+                </div>
+
+                  <div class="karta-tvurce-body a">
+                    <h5>Biografie</h5>
+                    {{herec.po}}
+
+                    <a href="{% url 'osobnosti:herec' slug=herec.slug %}">Více</a>
+                  </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+{% endblock %}

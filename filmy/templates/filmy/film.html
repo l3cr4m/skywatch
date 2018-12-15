@@ -1,0 +1,96 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+  {{film.title}}
+{% endblock %}
+
+{% block content %}
+  <div class="film">
+    <div class="film-top">
+      <div class="film-top-poster">
+        <img style="width: 184px" src="{{ film.poster.url }}" alt="{{ film.title }}">
+      </div>
+      <div class="film-top-info">
+        <h3 class="h4-nadpis">{{film.title}}</h3>
+        <p><span>{{film.zeme}}, {{film.rok}}, {{film.delka}}min</span></p>
+        <p class="kategorie"><span>Žánr:</span> {{film.zanr}}</p>
+        <p><span>Režije: </span>{{film.rezije}}</p>
+        <p><span>Scénař: </span>{{film.scenar}}</p>
+        <p class="a"><span>Hrají: </span>
+          {% for i in herecfilm %}
+            {% if i.film.title == film.title  %}
+              <a href="{% url 'osobnosti:herec' slug=i.herec.slug %}">{{i.herec.title}}</a>,
+            {% endif %}
+          {% endfor %}
+        </p>
+      </div>
+      <div class="film-top-rating">
+        <div class="rating">
+          <h3>{{film.hodnoceni}}%</h3>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="film-obsah">
+      <h4>Obsah</h4>
+      <p>{{film.obsah}}</p>
+    </div>
+
+    <div class="film-komentare">
+      <h3 class="h3-nadpis">Komentáře</h3>
+
+      {% for rec in recenze %}
+          <div class="film-komentare-komentar">
+           <h4 class="h4-nadpis">{{rec.jmeno}}</h4>
+           <p>{{rec.recenz}}</p>
+          </div>
+      {% endfor %}
+    </div>
+
+    <nav class="page-navigation" aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if recenze.has_previous %}
+          <li>
+            <a href="?page=1" aria-label="Next">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+
+        {% else %}
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+        {% endif %}
+
+        {% for nov in recenze.paginator.page_range %}
+          {% if recenze.number == nov %}
+            <li><a href=""> <strong>{{ nov }}</strong> </a></li>
+          {% elif nov > recenze.number|add:'-3' and nov < recenze.number|add:'3' %}
+            <li><a href="?page={{nov}}"> {{ nov }} </a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if recenze.has_next %}
+          <li>
+            <a href="?page={{ recenze.paginator.num_pages }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        {% endif %}
+    </nav>
+  </div>
+{% endblock %}

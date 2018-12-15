@@ -1,0 +1,57 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+  {{herec.title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+
+        <div class="karta-tvurce">
+            <div class="karta-tvurce-top">
+              <img src="{{herec.fotografie.url}}" alt="bttf">
+              <h4>{{herec.title}}</h4>
+              <p><span>narozeniny: </span>{{herec.narozeniny}}</p>
+              <p><span>město narození: </span>{{herec.misto_narozeni}}</p>
+            </div>
+
+              <div class="karta-tvurce-body">
+                <h5>Biografie</h5>
+
+                <p>{{herec.ziv|linebreaks}}</p>
+              </div>
+        </div>
+
+      </div>
+      <div class="col-sm-12 col-lg-6">
+        <div class="herec-list">
+          <h3 class="h3-nadpis">Žebříčky</h3>
+
+          <table class="table table-responsive-sm table-borderless table-hover tvurci-table a">
+             <thead class="thead-dark">
+               <tr>
+                 <th scope="col">%</th>
+                 <th scope="col">Rok</th>
+                 <th scope="col">Film</th>
+               </tr>
+             </thead>
+             <tbody>
+               {% for i in herecfilm %}
+                 {% if i.herec.title == herec.title %}
+                   <tr>
+                     <td><a href="{% url 'filmy:film' slug=i.film.slug %}">{{i.film.hodnoceni}}</a></td>
+                     <td><a href="{% url 'filmy:film' slug=i.film.slug %}">{{i.film.title}}</a></td>
+                     <td><a href="{% url 'filmy:film' slug=i.film.slug %}">{{i.film.rok}}</a></td>
+                   </tr>
+                 {% endif %}
+               {% endfor %}
+             </tbody>
+           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
