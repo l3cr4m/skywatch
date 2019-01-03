@@ -1,0 +1,23 @@
+.karta-tvurce, .herec-list{
+  margin-top: 80px;
+}
+
+.herec-list{
+  margin: 0 auto;
+
+  .tvurci-table{
+    text-align: center;
+    font-size: 14px;
+
+    td,th{
+      width: 100px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 576px){
+  .herec-list{
+    max-width: 300px;
+  }
+}

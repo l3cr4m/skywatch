@@ -1,0 +1,111 @@
+.billboard{
+  width: 700px;
+  margin: 50px auto;
+
+  img{
+    width: inherit;
+    height: auto;
+  }
+}
+
+.hp-popis{
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 50px;
+}
+
+.nabidka-filmu-btn{
+  text-align: center;
+  margin-bottom: 100px;
+
+
+  a{
+    width: 300px;
+    left: 2px;
+  }
+}
+
+.wrap{
+    width: 4rem;
+    height: 2rem;
+    margin: 30px auto;
+    margin-top: 50px;
+    display: block;
+    text-align: center;
+}
+
+.arrow {
+  width: 4rem;
+  height: 2rem;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+}
+.arrow span {
+  top: 0.8rem;
+  position: absolute;
+  width: 2.35rem;
+  height: 0.1rem;
+  background-color: grey;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+.arrow span:first-of-type {
+  left: 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.arrow span:last-of-type {
+  right: 0;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.arrow:hover span:last-of-type{
+  background-color: $red0;
+}
+.arrow:hover span:first-of-type{
+  background-color: $red0;
+}
+.arrow.active span:first-of-type {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.arrow.active span:last-of-type {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+
+.nadpis-novinky, .nadpis-herci{
+  direction: None;
+  text-align: center;
+  color: $title;
+  a{float: left;}
+
+  h3{
+    margin: 50px 0;
+  }
+
+  &:hover{
+    color: $red0;
+    text-decoration: none;
+  }
+}
+
+#karta-tvurce-homepage{
+  margin-top: 0px;
+  text-align: justify;
+  font-size: 14.5px;
+}
+
+@media screen and (max-width: 768px) {
+  .billboard{
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .billboard{
+    width: 320px;
+  }
+}

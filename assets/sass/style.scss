@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+$blue0: rgba( 46, 67,114,1);	// Main HlavnĂ­ barva */
+$blue1: rgba( 42, 42, 42,1);
+$blue2: rgba( 54, 62, 78,1);
+$blue3: rgba( 15, 58,149,1);
+$blue4: rgba(  0, 62,192,1);
+
+$red0: rgba(217,32,38,1);	// Main HlavnĂ­ barva */
+$red1: rgba(160,29,35,1);
+$red2: rgba(95,9,12,1);
+
+$text: rgba(0,0,0,.8);
+$title: rgba(0,0,0,.5);
+
+@import 'base_layout';
+@import 'homepage';
+@import 'zebricky';
+@import 'filmy';
+@import 'film';
+@import 'herec';
